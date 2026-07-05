@@ -49,8 +49,9 @@
     uMouse: { value: new THREE.Vector2(99, 99) },
     uScroll: { value: 0 },
     uPixelRatio: { value: PR },
-    uInk: { value: new THREE.Color('#f3efe6') },
-    uAccent: { value: new THREE.Color('#ff5a2c') },
+    uInk: { value: new THREE.Color('#f2ead8') },
+    uAccent: { value: new THREE.Color('#e79a63') },
+    uAccent2: { value: new THREE.Color('#7f92e0') },
   };
 
   const mat = new THREE.ShaderMaterial({
@@ -99,6 +100,7 @@
     fragmentShader: `
       uniform vec3 uInk;
       uniform vec3 uAccent;
+      uniform vec3 uAccent2;
       uniform float uTime;
       varying float vGlow;
       varying float vSeed;
@@ -109,8 +111,11 @@
         if (d > 0.5) discard;
         float alpha = smoothstep(0.5, 0.05, d);
 
+        // 暮色粒子:按种子在杏橙/长春花蓝之间取色,微微向奶油色提亮
         float pulse = 0.5 + 0.5 * sin(uTime * 0.7 + vSeed * 6.28);
-        vec3 col = mix(uInk, uAccent, clamp(vGlow * 1.4 + pulse * 0.22, 0.0, 1.0));
+        vec3 dusk = mix(uAccent2, uAccent, smoothstep(0.15, 0.85, vSeed));
+        vec3 col = mix(dusk, uInk, 0.3 + pulse * 0.15);
+        col = mix(col, uAccent, vGlow * 0.8);
         float a = alpha * (0.16 + vSeed * 0.22 + vGlow * 0.6);
         gl_FragColor = vec4(col, a);
       }

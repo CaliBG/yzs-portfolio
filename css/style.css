@@ -4,13 +4,15 @@
    ═══════════════════════════════════════════════ */
 
 :root {
-  --bg: #0e0d0b;
-  --bg-2: #14120f;
-  --surface: #191713;
-  --ink: #f3efe6;
-  --ink-dim: #8f8a7e;
-  --accent: #ff5a2c;
-  --line: rgba(243, 239, 230, 0.12);
+  /* 暮色方案:夜蓝底 × 奶油字 × 杏橙主色 × 长春花蓝辅色 */
+  --bg: #0f1118;
+  --bg-2: #12141d;
+  --surface: #171a24;
+  --ink: #f2ead8;
+  --ink-dim: #8d8c96;
+  --accent: #e79a63;
+  --accent-2: #7f92e0;
+  --line: rgba(242, 234, 216, 0.12);
   --font-sans: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
   --font-serif: "Playfair Display", "Noto Serif SC", serif;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -68,7 +70,7 @@ button { font-family: inherit; background: none; border: none; color: inherit; c
   position: absolute; bottom: 0; left: 0; width: 100%; height: 4px;
   background: rgba(243, 239, 230, 0.08);
 }
-.preloader__bar span { display: block; height: 100%; width: 0; background: var(--accent); }
+.preloader__bar span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
 
 /* ─────────── CURSOR ─────────── */
 .cursor {
@@ -94,7 +96,7 @@ button { font-family: inherit; background: none; border: none; color: inherit; c
   font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
   color: var(--bg); opacity: 0; transition: opacity 0.25s;
 }
-.cursor-follower.is-hover { width: 64px; height: 64px; background: rgba(255, 90, 44, 0.15); border-color: var(--accent); }
+.cursor-follower.is-hover { width: 64px; height: 64px; background: rgba(231, 154, 99, 0.15); border-color: var(--accent); }
 .cursor-follower.is-view { width: 88px; height: 88px; background: var(--accent); border-color: var(--accent); }
 .cursor-follower.is-view .cursor-label { opacity: 1; }
 @media (pointer: fine) { .cursor, .cursor-follower { display: flex; } }
@@ -113,7 +115,8 @@ button { font-family: inherit; background: none; border: none; color: inherit; c
 }
 .scroll-progress {
   position: fixed; top: 0; left: 0; z-index: 8500;
-  width: 100%; height: 3px; background: var(--accent);
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
   transform-origin: 0 50%; transform: scaleX(0);
 }
 
@@ -241,7 +244,7 @@ main { position: relative; z-index: 1; }
 .marquee--big { padding: 2rem 0; margin-bottom: clamp(3rem, 7vw, 5rem); border: none; }
 .marquee--big .marquee__track span {
   font-size: clamp(2.5rem, 7vw, 5.5rem); font-weight: 900; letter-spacing: 0.05em;
-  color: transparent; -webkit-text-stroke: 1px rgba(243, 239, 230, 0.35);
+  color: transparent; -webkit-text-stroke: 1px rgba(242, 234, 216, 0.35);
 }
 
 /* ─────────── MANIFESTO ─────────── */
@@ -378,10 +381,10 @@ main { position: relative; z-index: 1; }
 }
 .lab-card::after {
   content: ""; position: absolute; inset: 0;
-  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 90, 44, 0.14), transparent 60%);
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(231, 154, 99, 0.16), transparent 60%);
   opacity: 0; transition: opacity 0.4s; pointer-events: none;
 }
-.lab-card:hover { border-color: rgba(255, 90, 44, 0.5); }
+.lab-card:hover { border-color: rgba(127, 146, 224, 0.55); }
 .lab-card:hover::after { opacity: 1; }
 .lab-card__num { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.25em; color: var(--accent); }
 .lab-card h3 { font-size: clamp(1.3rem, 2.4vw, 1.8rem); font-weight: 900; margin: 1rem 0 0.8rem; }
@@ -395,7 +398,7 @@ main { position: relative; z-index: 1; }
 .app__icon { width: 100%; border-radius: 22%; position: relative; z-index: 1; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55); }
 .app__icon-glow {
   position: absolute; inset: -18%;
-  background: radial-gradient(circle, rgba(255, 90, 44, 0.32), transparent 65%);
+  background: radial-gradient(circle, rgba(127, 146, 224, 0.38), transparent 65%);
   filter: blur(20px); z-index: 0;
   animation: glowPulse 4s ease-in-out infinite;
 }
@@ -434,7 +437,7 @@ main { position: relative; z-index: 1; }
 .footer__big {
   font-size: clamp(3rem, 11vw, 10rem);
   font-weight: 900; line-height: 1.05; letter-spacing: -0.02em;
-  background: linear-gradient(90deg, var(--ink) 50%, rgba(243, 239, 230, 0.14) 50%);
+  background: linear-gradient(90deg, #f0c98f 0%, var(--accent) 22%, var(--accent-2) 50%, rgba(242, 234, 216, 0.14) 50%);
   background-size: 200% 100%; background-position: 100% 0;
   -webkit-background-clip: text; background-clip: text;
   color: transparent;
