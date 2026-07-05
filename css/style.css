@@ -87,7 +87,7 @@ button { font-family: inherit; background: none; border: none; color: inherit; c
   transform: translate(-50%, -50%);
   display: none;
   transition: width 0.35s var(--ease-out), height 0.35s var(--ease-out),
-              background 0.35s, border-color 0.35s, backdrop-filter 0.35s;
+              background 0.35s, border-color 0.35s;
   align-items: center; justify-content: center;
 }
 .cursor-label {
@@ -101,14 +101,15 @@ button { font-family: inherit; background: none; border: none; color: inherit; c
 
 /* ─────────── NOISE + PROGRESS ─────────── */
 .noise {
-  position: fixed; inset: -50%; z-index: 8000; pointer-events: none;
+  position: fixed; inset: -6%; z-index: 8000; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   opacity: 0.045;
-  animation: noiseShift 0.6s steps(4) infinite;
+  will-change: transform;
+  animation: noiseShift 0.7s steps(3) infinite;
 }
 @keyframes noiseShift {
-  0% { transform: translate(0, 0); } 25% { transform: translate(-2%, 1%); }
-  50% { transform: translate(1%, -2%); } 75% { transform: translate(-1%, 2%); } 100% { transform: translate(2%, 1%); }
+  0% { transform: translate(0, 0); } 33% { transform: translate(-1%, 0.6%); }
+  66% { transform: translate(0.7%, -1%); } 100% { transform: translate(-0.5%, 1%); }
 }
 .scroll-progress {
   position: fixed; top: 0; left: 0; z-index: 8500;
@@ -232,7 +233,7 @@ main { position: relative; z-index: 1; }
 
 /* ─────────── MARQUEE ─────────── */
 .marquee { overflow: hidden; white-space: nowrap; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.hero__marquee { position: absolute; bottom: 0; left: 0; width: 100%; z-index: 2; padding: 1rem 0; background: rgba(14, 13, 11, 0.55); backdrop-filter: blur(8px); }
+.hero__marquee { position: absolute; bottom: 0; left: 0; width: 100%; z-index: 2; padding: 1rem 0; background: rgba(14, 13, 11, 0.82); }
 .marquee__track { display: inline-block; will-change: transform; }
 .marquee__track span {
   font-size: 0.95rem; font-weight: 600; letter-spacing: 0.2em; color: var(--ink-dim);
@@ -257,7 +258,7 @@ main { position: relative; z-index: 1; }
 .manifesto__portrait figcaption {
   position: absolute; bottom: 1rem; left: 1rem;
   font-size: 0.75rem; letter-spacing: 0.1em; color: var(--ink);
-  background: rgba(14, 13, 11, 0.7); backdrop-filter: blur(6px);
+  background: rgba(14, 13, 11, 0.85);
   padding: 0.5rem 0.9rem;
 }
 .manifesto__quote {
@@ -497,8 +498,7 @@ main { position: relative; z-index: 1; }
 .modal__team { font-size: 0.82rem; color: var(--ink-dim); border-left: 2px solid var(--accent); padding-left: 1rem; margin-bottom: 2.5rem; }
 
 /* ─────────── DATA-DRIVEN ANIM PRIMITIVES ─────────── */
-[data-clip] { clip-path: inset(100% 0 0 0); will-change: clip-path; }
-[data-clip] img, [data-clip] video { will-change: transform; }
+[data-clip] { clip-path: inset(100% 0 0 0); }
 [data-reveal] { opacity: 0; transform: translateY(40px); will-change: transform, opacity; }
 
 /* ─────────── RESPONSIVE ─────────── */

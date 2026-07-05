@@ -196,18 +196,29 @@ gsap.utils.toArray('[data-count]').forEach((el) => {
 /* ─────────── 跑马灯(滚动速度联动) ─────────── */
 let scrollVel = 0;
 lenis.on('scroll', (e) => { scrollVel = e.velocity || 0; });
+const marquees = [];
 document.querySelectorAll('.marquee').forEach((mq) => {
   const track = mq.querySelector('.marquee__track');
-  const dir = parseFloat(mq.dataset.speed) || 1;
-  let x = 0;
-  gsap.ticker.add((_, dtMs) => {
-    const half = track.scrollWidth / 2;
-    if (!half) return;
-    const speed = (60 + Math.min(Math.abs(scrollVel) * 6, 340)) * dir; // px/s
-    x -= speed * (dtMs / 1000);
-    const wrapped = gsap.utils.wrap(-half, 0, x);
-    gsap.set(track, { x: wrapped });
-  });
+  const m = {
+    dir: parseFloat(mq.dataset.speed) || 1,
+    x: 0, half: 0, active: false,
+    setX: gsap.quickSetter(track, 'x', 'px'),
+    measure: () => { m.half = track.scrollWidth / 2; },
+  };
+  new IntersectionObserver(([en]) => { m.active = en.isIntersecting; }, { threshold: 0 }).observe(mq);
+  marquees.push(m);
+});
+function measureMarquees() { marquees.forEach((m) => m.measure()); }
+addEventListener('load', measureMarquees);
+addEventListener('resize', measureMarquees);
+measureMarquees();
+gsap.ticker.add((_, dtMs) => {
+  const boost = Math.min(Math.abs(scrollVel) * 6, 340);
+  for (const m of marquees) {
+    if (!m.active || !m.half) continue;
+    m.x -= (60 + boost) * m.dir * (dtMs / 1000);
+    m.setX(gsap.utils.wrap(-m.half, 0, m.x));
+  }
 });
 
 /* ─────────── 周边横向滚动 ─────────── */
@@ -249,11 +260,15 @@ if (isFinePointer) {
   gsap.set([cursor, follower], { xPercent: -50, yPercent: -50 });
 
   addEventListener('pointermove', (e) => { pos.x = e.clientX; pos.y = e.clientY; });
+  const setCx = gsap.quickSetter(cursor, 'x', 'px');
+  const setCy = gsap.quickSetter(cursor, 'y', 'px');
+  const setFx = gsap.quickSetter(follower, 'x', 'px');
+  const setFy = gsap.quickSetter(follower, 'y', 'px');
   gsap.ticker.add(() => {
     fol.x += (pos.x - fol.x) * 0.13;
     fol.y += (pos.y - fol.y) * 0.13;
-    gsap.set(cursor, { x: pos.x, y: pos.y });
-    gsap.set(follower, { x: fol.x, y: fol.y });
+    setCx(pos.x); setCy(pos.y);
+    setFx(fol.x); setFy(fol.y);
   });
 
   document.querySelectorAll('a, button, .app__tags li').forEach((el) => {
@@ -270,16 +285,15 @@ if (isFinePointer) {
 if (isFinePointer && !reduceMotion) {
   document.querySelectorAll('[data-magnetic]').forEach((el) => {
     const strength = 0.35;
+    const qx = gsap.quickTo(el, 'x', { duration: 0.4, ease: 'power3.out' });
+    const qy = gsap.quickTo(el, 'y', { duration: 0.4, ease: 'power3.out' });
     el.addEventListener('pointermove', (e) => {
       const r = el.getBoundingClientRect();
-      gsap.to(el, {
-        x: (e.clientX - r.left - r.width / 2) * strength,
-        y: (e.clientY - r.top - r.height / 2) * strength,
-        duration: 0.4, ease: 'power3.out',
-      });
+      qx((e.clientX - r.left - r.width / 2) * strength);
+      qy((e.clientY - r.top - r.height / 2) * strength);
     });
     el.addEventListener('pointerleave', () => {
-      gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.4)' });
+      gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.4)', overwrite: 'auto' });
     });
   });
 }
@@ -325,16 +339,18 @@ burger.addEventListener('click', () => (menuOpen ? closeMenu() : openMenu()));
 /* ─────────── 3D 倾斜卡片 ─────────── */
 if (isFinePointer && !reduceMotion) {
   document.querySelectorAll('[data-tilt]').forEach((card) => {
+    gsap.set(card, { transformPerspective: 800 });
+    const qrx = gsap.quickTo(card, 'rotateX', { duration: 0.5, ease: 'power2.out' });
+    const qry = gsap.quickTo(card, 'rotateY', { duration: 0.5, ease: 'power2.out' });
     card.addEventListener('pointermove', (e) => {
       const r = card.getBoundingClientRect();
-      const rx = ((e.clientY - r.top) / r.height - 0.5) * -8;
-      const ry = ((e.clientX - r.left) / r.width - 0.5) * 8;
-      gsap.to(card, { rotateX: rx, rotateY: ry, transformPerspective: 800, duration: 0.5, ease: 'power2.out' });
+      qrx(((e.clientY - r.top) / r.height - 0.5) * -8);
+      qry(((e.clientX - r.left) / r.width - 0.5) * 8);
       card.style.setProperty('--mx', ((e.clientX - r.left) / r.width) * 100 + '%');
       card.style.setProperty('--my', ((e.clientY - r.top) / r.height) * 100 + '%');
     });
     card.addEventListener('pointerleave', () => {
-      gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.9, ease: 'elastic.out(1, 0.5)' });
+      gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.9, ease: 'elastic.out(1, 0.5)', overwrite: 'auto' });
     });
   });
 }

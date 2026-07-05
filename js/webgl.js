@@ -15,15 +15,16 @@
   }
 
   const isMobile = matchMedia('(max-width: 860px), (pointer: coarse)').matches;
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  const PR = Math.min(devicePixelRatio, 1.5); // 降填充率:Retina 下 2x → 1.5x
+  renderer.setPixelRatio(PR);
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 100);
   camera.position.z = 10;
 
   // 粒子网格平面
-  const COLS = isMobile ? 90 : 160;
-  const ROWS = isMobile ? 50 : 90;
+  const COLS = isMobile ? 70 : 118;
+  const ROWS = isMobile ? 40 : 66;
   const COUNT = COLS * ROWS;
   const positions = new Float32Array(COUNT * 3);
   const seeds = new Float32Array(COUNT);
@@ -47,7 +48,7 @@
     uTime: { value: 0 },
     uMouse: { value: new THREE.Vector2(99, 99) },
     uScroll: { value: 0 },
-    uPixelRatio: { value: Math.min(devicePixelRatio, 2) },
+    uPixelRatio: { value: PR },
     uInk: { value: new THREE.Color('#f3efe6') },
     uAccent: { value: new THREE.Color('#ff5a2c') },
   };
