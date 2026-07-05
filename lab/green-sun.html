@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>翠陽の宿 GREEN SUN | 下諏訪温泉</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Noto+Serif+JP:wght@200;300;400;500;600&family=Zen+Old+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <style>
+        :root {
+            --color-primary: #1a3a2f;
+            --color-secondary: #d4af37;
+            --color-accent: #c9a227;
+            --color-bg: #f5f3ef;
+            --color-bg-warm: #faf8f5;
+            --color-text: #2c2c2c;
+            --color-text-light: #666;
+            --color-white: #ffffff;
+            --font-serif: 'Cormorant Garamond', 'Noto Serif JP', serif;
+            --font-jp: 'Zen Old Mincho', 'Noto Serif JP', serif;
+            --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-jp);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        /* 导航栏 */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.6s var(--transition-smooth);
+        }
+
+        .nav.scrolled {
+            background: rgba(245, 243, 239, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 3rem;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        .nav-logo-link {
+            text-decoration: none;
+            display: block;
+        }
+
+        .nav-logo-main {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            color: var(--color-white);
+            transition: color 0.6s;
+        }
+
+        .nav.scrolled .nav-logo-main {
+            color: var(--color-primary);
+        }
+
+        .nav-logo-sub {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            color: var(--color-secondary);
+            margin-top: 0.2rem;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-white);
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.6s;
+        }
+
+        .nav.scrolled .nav-links a {
+            color: var(--color-primary);
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 0.6rem;
+            color: var(--color-white);
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            transition: color 0.6s;
+        }
+
+        .nav.scrolled .lang-switch {
+            color: var(--color-primary);
+        }
+
+        .lang-btn {
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.3s, color 0.3s;
+        }
+
+        .lang-btn.active {
+            opacity: 1;
+            color: var(--color-secondary);
+        }
+
+        .nav-cta {
+            padding: 0.8rem 2rem;
+            border: 1px solid var(--color-secondary);
+            color: var(--color-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            transition: all 0.4s;
+        }
+
+        .nav.scrolled .nav-cta {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        /* 首页视口更新：应用新图 */
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* 使用用户提供的图片替换 */
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3)), url('') center/cover no-repeat;
+            transform: scale(1.1);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: var(--color-white);
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+            text-shadow: 0 2px 15px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            font-weight: 300;
+        }
+
+        /* 通用区块 */
+        .section {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            font-family: var(--font-serif);
+            font-size: 0.85rem;
+            letter-spacing: 0.4em;
+            color: var(--color-secondary);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            color: var(--color-primary);
+        }
+
+        /* 客室 */
+        .rooms {
+            background: var(--color-white);
+        }
+
+        .rooms-showcase {
+            position: relative;
+            margin-bottom: 4rem;
+            overflow: hidden;
+            height: 75vh;
+        }
+
+        .rooms-image-main {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            content: url('');
+        }
+
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .room-card {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .room-card-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.8s var(--transition-smooth);
+        }
+
+        .room-card:hover .room-card-image {
+            transform: scale(1.05);
+        }
+
+        /* 温泉 */
+        .onsen {
+            background: var(--color-primary);
+            color: var(--color-white);
+            padding: 8rem 0;
+        }
+
+        .onsen-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .onsen-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+
+        /* 页脚 */
+        .footer {
+            background: #0f1f1a;
+            color: var(--color-white);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1.5fr 1fr;
+            gap: 4rem;
+        }
+
+        .footer-brand h2 {
+            font-family: var(--font-serif);
+            font-weight: 400;
+        }
+
+        .footer-contact {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+    </style>
+</head>
+<body id="top">
+
+    <nav class="nav" id="nav">
+        <!-- 点击回归主页功能保持 -->
+        <a href="#top" class="nav-logo-link">
+            <div class="nav-logo">
+                <div class="nav-logo-main">GREEN SUN</div>
+                <div class="nav-logo-sub" data-i18n="nav_logo_sub">翠陽の宿</div>
+            </div>
+        </a>
+        <div class="nav-right">
+            <ul class="nav-links">
+                <li><a href="#rooms" data-i18n="nav_rooms">客室</a></li>
+                <li><a href="#onsen" data-i18n="nav_onsen">温泉</a></li>
+                <li><a href="#dining" data-i18n="nav_dining">料理</a></li>
+                <li><a href="#access" data-i18n="nav_access">交通</a></li>
+            </ul>
+            <div class="lang-switch">
+                <span class="lang-btn active" onclick="switchLang('ja')">JP</span>
+                <span style="opacity: 0.3">|</span>
+                <span class="lang-btn" onclick="switchLang('zh')">ZH</span>
+                <span style="opacity: 0.3">|</span>
+                <span class="lang-btn" onclick="switchLang('en')">EN</span>
+            </div>
+            <a href="#reservation" class="nav-cta" data-i18n="nav_cta">预订住宿</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-content">
+            <h1 class="hero-title" data-i18n="hero_title">翠陽の宿</h1>
+            <p class="hero-subtitle" data-i18n="hero_subtitle">下諏访温泉 · 源泉流水</p>
+        </div>
+    </section>
+
+    <!-- 客室 -->
+    <section class="rooms section" id="rooms">
+        <div class="rooms-showcase">
+            <img src="" alt="客室主图" class="rooms-image-main">
+        </div>
+        <div class="section-header fade-up">
+            <span class="section-label">GUEST ROOMS</span>
+            <h2 class="section-title" data-i18n="rooms_header">客室</h2>
+        </div>
+        <div class="rooms-grid">
+            <div class="room-card">
+                <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&q=80" class="room-card-image" alt="房间类型1">
+                <h3 style="margin-top: 1rem; font-weight: 400;" data-i18n="room1_title">旋律客房</h3>
+            </div>
+            <div class="room-card">
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80" class="room-card-image" alt="房间类型2">
+                <h3 style="margin-top: 1rem; font-weight: 400;" data-i18n="room2_title">标准客房</h3>
+            </div>
+            <div class="room-card">
+                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&q=80" class="room-card-image" alt="房间类型3">
+                <h3 style="margin-top: 1rem; font-weight: 400;" data-i18n="room3_title">和式客房</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- 温泉 -->
+    <section class="onsen section" id="onsen">
+        <div class="onsen-content">
+            <div class="fade-up">
+                <span class="section-label">HOT SPRING</span>
+                <h2 class="section-title" style="color:white;" data-i18n="onsen_header">源泉流水温泉</h2>
+                <p style="margin-top: 1rem; opacity: 0.8; line-height: 2;" data-i18n="onsen_desc">
+                    尽情享受由下诹访丰富自然孕育而成的天然温泉。
+                </p>
+            </div>
+            <div class="onsen-image fade-up">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="温泉">
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h2 style="font-family: var(--font-serif); font-weight: 400;">GREEN SUN</h2>
+                <p style="letter-spacing: 0.3em; font-size: 0.8rem; margin-top: 0.5rem;" data-i18n="footer_logo_sub">翠 陽 の 宿</p>
+            </div>
+            <div class="footer-contact">
+                <p style="margin-bottom: 0.5rem;">TEL: 0266-23-1234</p>
+                <!-- 更新后的电话号码 -->
+                <p style="margin-bottom: 0.5rem;">TEL: </p>
+                <p>Email: info@green-sun.jp</p>
+            </div>
+            <div class="footer-links" style="font-size: 0.85rem; color: rgba(255,255,255,0.4);">
+                <p>© GREEN SUN. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const i18n = {
+            ja: {
+                nav_logo_sub: "翠陽の宿", nav_rooms: "客室", nav_onsen: "温泉", nav_dining: "料理", nav_access: "交通", nav_cta: "宿泊予約",
+                hero_title: "翠陽の宿", hero_subtitle: "下諏訪温泉・源泉かけ流し",
+                rooms_header: "客室", room1_title: "メロディールーム", room2_title: "スタンダード", room3_title: "和室",
+                onsen_header: "源泉かけ流し温泉", onsen_desc: "下諏訪の豊かな自然が育んだ天然温泉を、完全貸切のプライベート空间でお楽しみください。",
+                footer_logo_sub: "翠 陽 の 宿"
+            },
+            zh: {
+                nav_logo_sub: "翠阳之宿", nav_rooms: "客房", nav_onsen: "温泉", nav_dining: "餐饮", nav_access: "交通", nav_cta: "预订住宿",
+                hero_title: "翠阳之宿", hero_subtitle: "下诹访温泉 · 纯天然活水温泉",
+                rooms_header: "客房概览", room1_title: "旋律套房", room2_title: "标准客房", room3_title: "和式客房",
+                onsen_header: "纯天然活水温泉", onsen_desc: "享受由下诹访丰富自然孕育而成的天然温泉，在完全私密的独立空间内尽情放松。",
+                footer_logo_sub: "翠 阳 之 宿"
+            },
+            en: {
+                nav_logo_sub: "Green Sun Ryokan", nav_rooms: "Rooms", nav_onsen: "Onsen", nav_dining: "Dining", nav_access: "Access", nav_cta: "Book Now",
+                hero_title: "GREEN SUN", hero_subtitle: "Shimosuwa Onsen · Natural Spring Water",
+                rooms_header: "Guest Rooms", room1_title: "Melody Room", room2_title: "Standard Room", room3_title: "Japanese Room",
+                onsen_header: "Natural Hot Springs", onsen_desc: "Enjoy the natural hot springs nurtured by Shimosuwa's nature in a private space.",
+                footer_logo_sub: "GREEN SUN"
+            }
+        };
+
+        function switchLang(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[lang][key]) el.innerHTML = i18n[lang][key];
+            });
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+        // 导航栏滚动逻辑
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('nav');
+            if (window.pageYOffset > 100) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+
+        // Logo 点击平滑返回顶部逻辑
+        document.querySelector('.nav-logo-link').addEventListener('click', (e) => {
+            e.preventDefault();
+            gsap.to(window, { duration: 1.2, scrollTo: 0, ease: "power3.inOut" });
+        });
+
+        // 首页内容入场动画
+        gsap.to('.hero-title', { opacity: 1, y: 0, duration: 1.2, delay: 0.5 });
+        gsap.to('.hero-subtitle', { opacity: 1, y: 0, duration: 1.2, delay: 0.8 });
+
+        // 首页背景图视差逻辑保持
+        gsap.to('#heroBg', {
+            yPercent: 30,
+            ease: 'none',
+            scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+        });
+
+        // 全局滚动淡入逻辑
+        gsap.utils.toArray('.fade-up').forEach(element => {
+            gsap.to(element, {
+                opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+                scrollTrigger: { trigger: element, start: 'top 85%' }
+            });
+        });
+
+        // 客室网格卡片逐个入场逻辑
+        gsap.to('.room-card', {
+            opacity: 1, y: 0, duration: 0.8, stagger: 0.2,
+            scrollTrigger: { trigger: '.rooms-grid', start: 'top 80%' }
+        });
+
+        // 客室主图视差效果逻辑
+        gsap.to('.rooms-image-main', {
+            yPercent: 10, ease: 'none',
+            scrollTrigger: { trigger: '.rooms-showcase', start: 'top bottom', end: 'bottom top', scrub: true }
+        });
+    </script>
+</body>
+</html>

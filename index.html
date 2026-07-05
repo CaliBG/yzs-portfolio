@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YZS® — Yet Zero Sense | 杨子硕 Cali-Yang 作品集</title>
+<meta name="description" content="杨子硕 (Cali-Yang) 个人作品集 — YZS · Yet Zero Sense。感知归零，一切重新开始。立体装置 / 交互设计 / 品牌视觉 / 智能穿戴 / 非遗再生。">
+<link rel="icon" type="image/png" href="assets/img/logo-white.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Noto+Serif+SC:wght@400;600;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ═══════════ PRELOADER ═══════════ -->
+<div class="preloader" id="preloader">
+  <div class="preloader__inner">
+    <div class="preloader__words">
+      <span class="preloader__word">感知归零</span>
+      <span class="preloader__word">YET ZERO SENSE</span>
+      <span class="preloader__word">无我 / 存在</span>
+      <span class="preloader__word">空白即回应</span>
+      <span class="preloader__word">(((CALI-YANG!!!)))</span>
+    </div>
+    <div class="preloader__counter"><span id="counter">0</span></div>
+  </div>
+  <div class="preloader__bar"><span id="preloaderBar"></span></div>
+</div>
+
+<!-- ═══════════ FIXED LAYERS ═══════════ -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"><span class="cursor-label" id="cursorLabel"></span></div>
+<div class="noise"></div>
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══════════ NAV ═══════════ -->
+<header class="nav" id="nav">
+  <a href="#top" class="nav__logo" data-magnetic>
+    <img src="assets/img/logo-white.png" alt="YZS" class="nav__logo-img">
+    <span class="nav__logo-text">YZS<sup>®</sup></span>
+  </a>
+  <nav class="nav__links">
+    <a href="#manifesto" class="nav__link" data-scramble="MANIFESTO">宣言</a>
+    <a href="#works" class="nav__link" data-scramble="WORKS">作品</a>
+    <a href="#goods" class="nav__link" data-scramble="GOODS">周边</a>
+    <a href="#lab" class="nav__link" data-scramble="LAB">实验室</a>
+    <a href="#app" class="nav__link" data-scramble="APP">开发</a>
+    <a href="#contact" class="nav__link" data-scramble="CONTACT">联络</a>
+  </nav>
+  <button class="nav__burger" id="burger" aria-label="menu" data-magnetic>
+    <span></span><span></span>
+  </button>
+</header>
+
+<!-- ═══════════ FULLSCREEN MENU ═══════════ -->
+<div class="menu" id="menu">
+  <div class="menu__bg"></div>
+  <div class="menu__inner">
+    <div class="menu__links">
+      <a href="#manifesto" class="menu__link"><span class="menu__num">01</span><span class="menu__word">宣言 <em>Manifesto</em></span></a>
+      <a href="#works" class="menu__link"><span class="menu__num">02</span><span class="menu__word">作品 <em>Works</em></span></a>
+      <a href="#goods" class="menu__link"><span class="menu__num">03</span><span class="menu__word">周边 <em>Goods</em></span></a>
+      <a href="#lab" class="menu__link"><span class="menu__num">04</span><span class="menu__word">实验室 <em>Lab</em></span></a>
+      <a href="#app" class="menu__link"><span class="menu__num">05</span><span class="menu__word">开发 <em>Dev</em></span></a>
+      <a href="#contact" class="menu__link"><span class="menu__num">06</span><span class="menu__word">联络 <em>Contact</em></span></a>
+    </div>
+    <div class="menu__foot">
+      <p>YZS® — Yet Zero Sense</p>
+      <p>感知归零，一切重新开始。</p>
+    </div>
+  </div>
+</div>
+
+<main id="top">
+
+  <!-- ═══════════ HERO ═══════════ -->
+  <section class="hero" id="hero">
+    <canvas id="webgl"></canvas>
+    <div class="hero__inner">
+      <p class="hero__eyebrow"><span class="line">YZS® — YET ZERO SENSE — 青年视觉品牌</span></p>
+      <h1 class="hero__title" id="heroTitle">
+        <span class="hero__line">(((CALI</span>
+        <span class="hero__line hero__line--accent">-YANG</span>
+        <span class="hero__line">!!!)))</span>
+      </h1>
+      <div class="hero__sub">
+        <p class="hero__name">杨子硕 <em>/ Yang Zishuo</em> 😇</p>
+        <p class="hero__desc">立体装置 · 交互设计 · 品牌视觉 · 智能穿戴 · 非遗再生 · 视觉叙事</p>
+      </div>
+    </div>
+    <div class="hero__marquee marquee" data-speed="1">
+      <div class="marquee__track">
+        <span>感知归零 — YET ZERO SENSE — 我们设计物，也设计「无物」 — YZS® — 空白本身就是一种回应 — </span
+        ><span>感知归零 — YET ZERO SENSE — 我们设计物，也设计「无物」 — YZS® — 空白本身就是一种回应 — </span>
+      </div>
+    </div>
+    <div class="hero__scroll-hint"><span></span>SCROLL</div>
+  </section>
+
+  <!-- ═══════════ MANIFESTO ═══════════ -->
+  <section class="manifesto section" id="manifesto">
+    <p class="section__tag" data-reveal>◉ 宣言 / MANIFESTO</p>
+    <h2 class="manifesto__text" data-lines>
+      我们拒绝多余的修辞，只谈存在本身。YZS 是年轻灵魂的留白区——一个探索「无我」与「存在」边界的青年视觉品牌。感知归零，一切重新开始。
+    </h2>
+    <div class="manifesto__row">
+      <figure class="manifesto__portrait" data-clip>
+        <img src="assets/img/me.jpg" alt="杨子硕" data-parallax="12">
+        <figcaption>杨子硕 — 热爱设计与视觉的美术生</figcaption>
+      </figure>
+      <div class="manifesto__side">
+        <p class="manifesto__quote" data-reveal>「YZS 不提供答案，<br>只提供空白。」</p>
+        <div class="stats">
+          <div class="stat"><span class="stat__num" data-count="20">0</span><span class="stat__plus">+</span><span class="stat__label">项目完成 / PROJECTS</span></div>
+          <div class="stat"><span class="stat__num" data-count="10">0</span><span class="stat__plus">+</span><span class="stat__label">设计奖项 / AWARDS</span></div>
+          <div class="stat"><span class="stat__num" data-count="5">0</span><span class="stat__plus">+</span><span class="stat__label">国内客户 / CLIENTS</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ WORKS ═══════════ -->
+  <section class="works section" id="works">
+    <p class="section__tag" data-reveal>◉ 精选作品 / SELECTED WORKS 2025 — 2026</p>
+    <h2 class="section__title" data-split>作品即证据<em>Works as Evidence</em></h2>
+
+    <div class="work" data-work="w01">
+      <div class="work__media" data-clip><img src="assets/img/work01.jpg" alt="43+1" data-parallax="15"></div>
+      <div class="work__info">
+        <span class="work__index">01</span>
+        <h3 class="work__title" data-split-sm>43+1 — 力量与平衡</h3>
+        <p class="work__meta">立体装置 · 概念艺术 · 2025</p>
+        <p class="work__desc">捕捉「力量被凝固」的瞬间——榔头被定格在钉子的世界中，失去攻击性，反被钉子们支撑、包围。行动与克制之间的悬停。</p>
+        <button class="work__open" data-magnetic>查看项目 <i>→</i></button>
+      </div>
+    </div>
+
+    <div class="work work--rev" data-work="w02">
+      <div class="work__media" data-clip><img src="assets/img/work02.jpg" alt="皮囊记忆" data-parallax="15"></div>
+      <div class="work__info">
+        <span class="work__index">02</span>
+        <h3 class="work__title" data-split-sm>皮囊记忆</h3>
+        <p class="work__meta">镜面装置 · 互动艺术 · 2025</p>
+        <p class="work__desc">镜面被框入洁白边界，观者既是观看者也是被观看者。画框是被社会规训的目光，镜面是自我反思的现场——关于「身体记忆」的存在证据。</p>
+        <button class="work__open" data-magnetic>查看项目 <i>→</i></button>
+      </div>
+    </div>
+
+    <div class="work" data-work="w03">
+      <div class="work__media" data-clip><img src="assets/img/work03.jpg" alt="痛" data-parallax="15"></div>
+      <div class="work__info">
+        <span class="work__index">03</span>
+        <h3 class="work__title" data-split-sm>痛 — 被规训的皮囊</h3>
+        <p class="work__meta">综合材料 · 装置雕塑 · 2025</p>
+        <p class="work__desc">以「皮囊」为核心意象，金属网与石膏层层叠加，象征被压缩的情绪与碎裂的自我——个体在社交滤镜与社会规训下被捆束、塑形。</p>
+        <button class="work__open" data-magnetic>查看项目 <i>→</i></button>
+      </div>
+    </div>
+
+    <div class="work work--rev" data-work="w04">
+      <div class="work__media" data-clip><img src="assets/img/work04.jpg" alt="深海呼吸" data-parallax="15"></div>
+      <div class="work__info">
+        <span class="work__index">04</span>
+        <h3 class="work__title" data-split-sm>深海呼吸</h3>
+        <p class="work__meta">智能穿戴 · 仿生设计 · 团队协作</p>
+        <p class="work__desc">压力代谢仪式。服饰表面流动的呼吸鳃结构随呼吸与心理压力起伏，仿生感官脊柱自颈后延伸，将焦虑转化为可视的波纹。Arduino + 传感器 + 3D 打印。</p>
+        <button class="work__open" data-magnetic>查看项目 <i>→</i></button>
+      </div>
+    </div>
+
+    <div class="work" data-work="w05">
+      <div class="work__media" data-clip><img src="assets/img/work05.jpg" alt="拓印-流动的痕" data-parallax="15"></div>
+      <div class="work__info">
+        <span class="work__index">05</span>
+        <h3 class="work__title" data-split-sm>拓印 — 流动的痕</h3>
+        <p class="work__meta">交互装置 · 时间感知 · 团队协作</p>
+        <p class="work__desc">以「沙」为媒介的时间装置：观众靠近，超声波传感触发沙丘崩塌流动；远离则回归静止，却留下不可逆的痕迹。距离即介入。</p>
+        <button class="work__open" data-magnetic>查看项目 <i>→</i></button>
+      </div>
+    </div>
+
+    <div class="work work--rev" data-work="w07">
+      <div class="work__media work__media--video" data-clip>
+        <video src="assets/img/work07.mp4" muted loop playsinline autoplay></video>
+      </div>
+      <div class="work__info">
+        <span class="work__index">06</span>
+        <h3 class="work__title" data-split-sm>安静指数</h3>
+        <p class="work__meta">系统设计 · 行为可视化 · 环境协同</p>
+        <p class="work__desc">把宿舍里不可见的噪音与作息状态，转化为可理解的「安静指数」。非指向性提示避免归因个体，去 APP 依赖的分层设计柔性缓解共享空间的隐性压力。</p>
+        <button class="work__open" data-magnetic>查看项目 <i>→</i></button>
+      </div>
+    </div>
+
+    <div class="work" data-work="w08">
+      <div class="work__media" data-clip><img src="assets/img/work08.jpg" alt="靛狮·域守" data-parallax="15"></div>
+      <div class="work__info">
+        <span class="work__index">07</span>
+        <h3 class="work__title" data-split-sm>靛狮 · 域守</h3>
+        <p class="work__meta">非遗再生 · 综合材料 · 装置设计</p>
+        <p class="work__desc">墩头篮非遗 × 舞狮意象。废弃报纸塑形、废旧纺织物覆面，拼接轮胎与电路板——柔软乡土与坚硬工业的对照，重构地方文化记忆。</p>
+        <button class="work__open" data-magnetic>查看项目 <i>→</i></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ GOODS — HORIZONTAL ═══════════ -->
+  <section class="goods" id="goods">
+    <div class="goods__pin">
+      <div class="goods__head">
+        <p class="section__tag">◉ YZS® 周边系列 / GOODS · 2026</p>
+        <h2 class="section__title-sm">可触摸的态度<em>Tangible Attitude — 横向滑动</em></h2>
+      </div>
+      <div class="goods__track" id="goodsTrack">
+        <figure class="goods__item"><img src="assets/img/work06.jpg" alt="YZS 周边"><figcaption>YZS® / 001</figcaption></figure>
+        <figure class="goods__item goods__item--tall"><img src="assets/img/work06-2.jpg" alt="YZS 周边"><figcaption>YZS® / 002</figcaption></figure>
+        <figure class="goods__item"><img src="assets/img/work06-3.jpg" alt="YZS 周边"><figcaption>YZS® / 003</figcaption></figure>
+        <figure class="goods__item goods__item--tall"><img src="assets/img/work06-5.jpg" alt="YZS 周边"><figcaption>YZS® / 004</figcaption></figure>
+        <figure class="goods__item"><img src="assets/img/work06-8.jpg" alt="YZS 周边"><figcaption>YZS® / 005</figcaption></figure>
+        <figure class="goods__item goods__item--tall"><img src="assets/img/work06-12.jpg" alt="YZS 周边"><figcaption>YZS® / 006</figcaption></figure>
+        <div class="goods__end"><p>被携带<br>被使用<br>被消耗<br>被时间留下痕迹</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ COMPETITIONS ═══════════ -->
+  <section class="comps section" id="comps">
+    <div class="marquee marquee--big" data-speed="-1.4">
+      <div class="marquee__track">
+        <span>COMPETITIONS ✦ AWARDS ✦ EXHIBITIONS ✦ HONORS ✦ </span
+        ><span>COMPETITIONS ✦ AWARDS ✦ EXHIBITIONS ✦ HONORS ✦ </span>
+      </div>
+    </div>
+    <div class="comps__grid">
+      <article class="comp-card" data-tilt data-clip>
+        <img src="assets/img/comp-bay.jpg" alt="大湾区双年展">
+        <div class="comp-card__body">
+          <h3>大湾区双年展 · 2026</h3>
+          <p>第八届粤港澳大湾区学校设计作品展 暨 第十届广东省高校设计作品学院奖双年展 — 已参展</p>
+        </div>
+      </article>
+      <article class="comp-card" data-tilt data-clip>
+        <img src="assets/img/comp-platinum-1.jpg" alt="白金创意">
+        <div class="comp-card__body">
+          <h3>白金创意国际大赛 · 2026</h3>
+          <p>第 26 届白金创意国际大学生平面设计大赛 — 参赛作品已提交</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ═══════════ LAB — PLAYABLE DEMOS ═══════════ -->
+  <section class="lab section" id="lab">
+    <p class="section__tag" data-reveal>◉ 实验室 / LAB — 可以玩的作品</p>
+    <h2 class="section__title" data-split>代码即画笔<em>Creative Coding — Click to Play</em></h2>
+    <div class="lab__grid">
+      <a class="lab-card" href="lab/sand-trace.html" target="_blank" rel="noopener" data-tilt>
+        <span class="lab-card__num">L·01</span>
+        <h3>沙痕装置 · 互动模拟</h3>
+        <p>摄像头肤色检测远近 → 舵机摆锤在沙盘上留下不可逆痕迹。作品《拓印》的数字孪生。</p>
+        <span class="lab-card__tags">Canvas 2D · getUserMedia · 物理模拟</span>
+        <span class="lab-card__go">进入 →</span>
+      </a>
+      <a class="lab-card" href="lab/type-clock.html" target="_blank" rel="noopener" data-tilt>
+        <span class="lab-card__num">L·02</span>
+        <h3>动态排版时钟</h3>
+        <p>十二个数字在圆环、混沌、错落三种排版状态之间呼吸切换，四套字符系统轮转。</p>
+        <span class="lab-card__tags">p5.js · 生成艺术 · 动态排版</span>
+        <span class="lab-card__go">进入 →</span>
+      </a>
+      <a class="lab-card" href="lab/green-sun.html" target="_blank" rel="noopener" data-tilt>
+        <span class="lab-card__num">L·03</span>
+        <h3>翠陽の宿 GREEN SUN</h3>
+        <p>下諏訪温泉旅馆三语落地页——视差 Hero、滚动交错入场、和风排版练习。</p>
+        <span class="lab-card__tags">GSAP · ScrollTrigger · Web 设计</span>
+        <span class="lab-card__go">进入 →</span>
+      </a>
+      <a class="lab-card" href="lab/calendar-app.html" target="_blank" rel="noopener" data-tilt>
+        <span class="lab-card__num">L·04</span>
+        <h3>Calendar × Weather UI</h3>
+        <p>玻璃拟态移动端原型:模糊光斑背景、日历卡片滑入天气详情的转场设计。</p>
+        <span class="lab-card__tags">UI 原型 · Glassmorphism · 交互设计</span>
+        <span class="lab-card__go">进入 →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════ APP / DEV ═══════════ -->
+  <section class="app section" id="app">
+    <p class="section__tag" data-reveal>◉ 独立开发 / INDIE DEV</p>
+    <div class="app__row">
+      <div class="app__icon-wrap" data-tilt>
+        <img src="assets/img/tongkuang-icon.png" alt="同框 App" class="app__icon">
+        <div class="app__icon-glow"></div>
+      </div>
+      <div class="app__info">
+        <h2 class="section__title" data-split>同框<em>Tongkuang — iOS App</em></h2>
+        <p class="app__desc" data-reveal>一款前后双摄同时取景的 iOS 相机应用。基于 <code>AVCaptureMultiCamSession</code> 实现前后镜头同步预览、拍照与录像；画中画小窗自由拖拽、四角吸附、单击互换主副画面；支持三种布局、倒计时录制、前后合成长图输出。</p>
+        <ul class="app__tags">
+          <li>Swift / SwiftUI</li><li>AVFoundation</li><li>MultiCam</li><li>CoreMotion</li><li>StoreKit</li><li>iOS 16+</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ TESTIMONIALS ═══════════ -->
+  <section class="voices section" id="voices">
+    <p class="section__tag" data-reveal>◉ 合作者的话 / VOICES</p>
+    <div class="voices__grid">
+      <blockquote class="voice" data-tilt>
+        <p>「对画面的把控力和叙事感都超出预期，是能把想法真正落地的设计者。」</p>
+        <footer><span class="voice__stars">★★★★★</span><cite>李明 — 设计公司</cite></footer>
+      </blockquote>
+      <blockquote class="voice" data-tilt>
+        <p>「美术生的感知力，加上对 AIGC 与 vibe coding 的持续探索，自驱力极强。」</p>
+        <footer><img src="assets/img/liuyanjun-avatar.jpg" alt=""><span class="voice__stars">★★★★★</span><cite>刘彦君 — 华南筑真科技</cite></footer>
+      </blockquote>
+      <blockquote class="voice" data-tilt>
+        <p>「稳定跟进每一次反馈，总能给出有启发性的建议。」</p>
+        <footer><img src="assets/img/zerone-avatar.jpg" alt=""><span class="voice__stars">★★★★★</span><cite>Zerone — Hidweek</cite></footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ═══════════ CONTACT / FOOTER ═══════════ -->
+  <footer class="footer" id="contact">
+    <div class="footer__cta">
+      <p class="section__tag">◉ 联络 / CONTACT</p>
+      <h2 class="footer__big" id="footerBig">感知归零<br>一切重新开始</h2>
+      <p class="footer__en">BRINGING LIFE BACK TO ZERO SENSE</p>
+    </div>
+    <div class="footer__row">
+      <div class="footer__social">
+        <a href="https://www.xiaohongshu.com/user/profile/60e45d75000000002002f229" target="_blank" rel="noopener" data-magnetic>小红书</a>
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAwZDZH1-khE631mUgvp1U0ZsJM7w-yoLCMUymkTEPzxiA1Y5peo-hNZLApZ4LORoi" target="_blank" rel="noopener" data-magnetic>抖音</a>
+        <a href="https://space.bilibili.com/3690996065897028" target="_blank" rel="noopener" data-magnetic>Bilibili</a>
+        <a href="https://www.instagram.com/caliyang0693" target="_blank" rel="noopener" data-magnetic>Instagram</a>
+        <a href="https://www.youtube.com/@yzs-cali-yang" target="_blank" rel="noopener" data-magnetic>YouTube</a>
+      </div>
+      <div class="footer__cards">
+        <img src="assets/img/card.png" alt="名片" class="footer__card" data-tilt>
+      </div>
+    </div>
+    <div class="footer__base">
+      <img src="assets/img/logo-white.png" alt="YZS" class="footer__logo">
+      <p>Copyright © 2026 YZS — Yet Zero Sense · 杨子硕</p>
+      <p class="footer__hint">我们设计物，也设计「无物」。</p>
+    </div>
+  </footer>
+
+</main>
+
+<!-- ═══════════ PROJECT MODAL ═══════════ -->
+<div class="modal" id="modal">
+  <div class="modal__bg" id="modalBg"></div>
+  <div class="modal__panel">
+    <button class="modal__close" id="modalClose" data-magnetic>✕</button>
+    <div class="modal__scroll" id="modalScroll">
+      <p class="modal__meta" id="modalMeta"></p>
+      <h2 class="modal__title" id="modalTitle"></h2>
+      <p class="modal__desc" id="modalDesc"></p>
+      <div class="modal__gallery" id="modalGallery"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrambleTextPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="js/webgl.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
